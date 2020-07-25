@@ -16,5 +16,7 @@ data:
     pidfile /var/run/redis_6379.pid
     loglevel notice
     logfile ""
+    requirepass "P@ssw0rd"
   slave.conf: |
     slaveof redis-0.azure-vote-back 6379
+    masterauth "P@ssw0rd"

@@ -43,8 +43,11 @@ spec:
         command: ["redis-server"]
         args: ["/etc/redis.conf"]
         env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
+        - name: REDIS_PWD
+          valueFrom:
+            secretKeyRef:
+              name: redis
+              key: password
         ports:
         - name: redis
           containerPort: 6379
@@ -53,17 +56,18 @@ spec:
             command:
             - sh
             - -c
-            - "redis-cli -h localhost ping"
-          initialDelaySeconds: 15
+            - "redis-cli -a $REDIS_PWD -h localhost ping"
+          initialDelaySeconds: 30
+          periodSeconds: 15
           timeoutSeconds: 5
         livenessProbe:
           exec:
             command:
             - sh
             - -c
-            - "redis-cli -h localhost ping"
-          initialDelaySeconds: 30
-          periodSeconds: 3          
+            - "redis-cli -a $REDIS_PWD -h localhost ping"
+          initialDelaySeconds: 15
+          periodSeconds: 15       
         volumeMounts:
         - name: redis
           mountPath: /data

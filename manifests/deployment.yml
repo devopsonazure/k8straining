@@ -21,6 +21,30 @@ spec:
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: DoesNotExist
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                - key: fe
+                  operator: Exists
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - redis
+                topologyKey: kubernetes.io/hostname                
       containers:
       - name: azure-vote-front
         image: huangyingting/azure-vote-front:v1
@@ -34,3 +58,8 @@ spec:
         env:
         - name: REDIS
           value: "redis-0.azure-vote-back"
+        - name: REDIS_PWD
+          valueFrom:
+            secretKeyRef:
+              name: redis
+              key: password        
