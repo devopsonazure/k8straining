@@ -33,4 +33,4 @@ spec:
             cpu: 500m
         env:
         - name: REDIS
-          value: "redis-0.redis"
+          value: "redis-0.azure-vote-back"

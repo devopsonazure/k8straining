@@ -17,4 +17,4 @@ data:
     loglevel notice
     logfile ""
   slave.conf: |
-    slaveof redis-0.redis 6379
+    slaveof redis-0.azure-vote-back 6379
