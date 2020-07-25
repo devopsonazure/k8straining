@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: redis
   serviceName: "azure-vote-back"
-  replicas: 2 
+  replicas: 2
   template:
     metadata:
       labels:
@@ -31,6 +31,13 @@ spec:
           else
             cp /mnt/config/slave.conf /etc/redis.conf
           fi
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
         volumeMounts:
         - name: redis
           mountPath: /etc
@@ -48,6 +55,13 @@ spec:
             secretKeyRef:
               name: redis
               key: password
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
         ports:
         - name: redis
           containerPort: 6379

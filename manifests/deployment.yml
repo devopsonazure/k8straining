@@ -53,8 +53,10 @@ spec:
         resources:
           requests:
             cpu: 100m
+            memory: 64Mi
           limits:
-            cpu: 500m
+            cpu: 200m
+            memory: 128Mi
         env:
         - name: REDIS
           value: "redis-0.azure-vote-back"
