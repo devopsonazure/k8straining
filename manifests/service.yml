@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-vote-front
+  namespace: k8straining
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: azure-vote-front
