@@ -3,8 +3,6 @@ kind: StatefulSet
 metadata:
   name: redis
   namespace: k8straining
-  labels:
-    app: redis
 spec:
   selector:
     matchLabels:
@@ -25,21 +23,20 @@ spec:
         - "-c"
         - |
           set -ex
-          # Generate mysql server-id from pod ordinal index.
           [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
-          # Copy appropriate conf.d files from config-map to emptyDir.
+          # Copy appropriate config files to emptyDir.
           if [[ $ordinal -eq 0 ]]; then
-            cp /mnt/config-map/master.conf /etc/redis.conf
+            cp /mnt/config/master.conf /etc/redis.conf
           else
-            cp /mnt/config-map/slave.conf /etc/redis.conf
+            cp /mnt/config/slave.conf /etc/redis.conf
           fi
         volumeMounts:
-        - name: conf
+        - name: redis
           mountPath: /etc
           subPath: redis.conf
-        - name: config-map
-          mountPath: /mnt/config-map
+        - name: cm
+          mountPath: /mnt/config
       containers:
       - name: redis
         image: redis:4.0.9
@@ -51,17 +48,32 @@ spec:
         ports:
         - name: redis
           containerPort: 6379
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "redis-cli -h localhost ping"
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "redis-cli -h localhost ping"
+          initialDelaySeconds: 30
+          periodSeconds: 3          
         volumeMounts:
-        - name: redis-data
+        - name: redis
           mountPath: /data
-        - name: conf
+          subPath: data
+        - name: redis
           mountPath: /etc/
           subPath: redis.conf
       volumes:
-      - name: "redis-data"
+      - name: redis
         emptyDir: {}
-      - name: conf
-        emptyDir: {}
-      - name: config-map
+      - name: cm
         configMap:
           name: redis

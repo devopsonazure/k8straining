@@ -1,0 +1,34 @@
+# nc -z -v azure-vote-back.k8straining.svc.cluster.local 6379
+# nc -z -v vote.k8s.devsecops.ink 80
+# nc -z -v azure-vote-front 80
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-front-to-back
+  namespace: k8straining
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  ingress:
+  - from:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          app: azure-vote-front
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-back-to-back
+  namespace: k8straining
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  ingress:
+  - from:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          app: redis
