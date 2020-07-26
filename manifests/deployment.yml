@@ -5,7 +5,7 @@ metadata:
   namespace: k8straining
 spec:
   revisionHistoryLimit: 20
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: azure-vote-front

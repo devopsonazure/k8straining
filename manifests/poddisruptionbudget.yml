@@ -1,0 +1,10 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: azure-vote-front
+  namespace: k8straining
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: azure-vote-front
