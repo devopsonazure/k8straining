@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wget
+  namespace: k8straining
+spec:
+  template:
+    spec:
+      containers:
+      - name: wget
+        image: busybox
+        command: ["/bin/sh", "-c", "wget -q -O - http://vote.k8s.devsecops.ink"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi        
+      restartPolicy: Never
+  backoffLimit: 4

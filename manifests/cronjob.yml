@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: healthcheck
+  namespace: k8straining
+spec:
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: healthcheck
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - wget -q -O - http://vote.k8s.devsecops.ink
+            resources:
+              requests:
+                cpu: 100m
+                memory: 64Mi
+              limits:
+                cpu: 200m
+                memory: 128Mi            
+          restartPolicy: OnFailure
