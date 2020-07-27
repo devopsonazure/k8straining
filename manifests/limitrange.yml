@@ -8,9 +8,18 @@ spec:
   - default:
       memory: 256Mi
     defaultRequest:
-      memory: 64Mi
-    max:
-      memory: 256Mi
-    min:
-      memory: 64Mi
+      memory: 16Mi
+    type: Container
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-limitrange
+  namespace: k8straining
+spec:
+  limits:
+  - default:
+      cpu: 200m
+    defaultRequest:
+      cpu: 50m
     type: Container
