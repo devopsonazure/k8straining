@@ -1,0 +1,6 @@
+business_unit = "K8STR"
+location = "southeastasia"
+username = "REPLACE_ME"
+password = "REPLACE_ME"
+aad_client_id="REPLACE_ME"
+aad_client_secret="REPLACE_ME"
