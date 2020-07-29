@@ -208,17 +208,6 @@ resource "azurerm_network_interface" "nics" {
   }
 }
 
-resource "azurerm_managed_disk" "disks" {
-  count                = var.total
-  name                 = "Data-${format("%02s", count.index)}"
-  location             = azurerm_resource_group.rg.location
-  resource_group_name  = azurerm_resource_group.rg.name
-  storage_account_type = "Standard_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = var.disk_size_gb
-  zones = var.has_zone ? [count.index % 3 + 1] : null
-}
-
 resource "azurerm_linux_virtual_machine" "vms" {
   count               = var.total
   name                = "${var.business_unit}-${format("%02s", count.index)}"
@@ -249,12 +238,4 @@ resource "azurerm_linux_virtual_machine" "vms" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.bootdiagsa.primary_blob_endpoint
   }
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "vmdda" {
-  count              = var.total
-  managed_disk_id    = azurerm_managed_disk.disks[count.index].id
-  virtual_machine_id = azurerm_linux_virtual_machine.vms[count.index].id
-  caching            = "None"
-  lun                = "0"
 }

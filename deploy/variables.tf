@@ -29,10 +29,6 @@ variable "aad_client_id" {
 variable "aad_client_secret" {
 }
 
-variable "disk_size_gb" {
-  default = 64
-}
-
 variable "has_zone" {
   default = false
 }
