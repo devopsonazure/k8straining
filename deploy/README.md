@@ -25,3 +25,4 @@ sudo vi /etc/kubernetes/kubeadm.yaml
 sudo kubeadm join --config /etc/kubernetes/kubeadm.yaml
 ```
 - Run `kubectl apply -f https://docs.projectcalico.org/manifests/canal.yaml` to provision networking CNI, we use calico canal here.
+- Run `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml` to install metrics server, which will be used for HPA example.
