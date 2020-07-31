@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: vote.k8s.devsecops.ink
+  - host: public-ip.xip.io
     http:
       paths:
       - backend:
