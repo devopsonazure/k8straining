@@ -14,6 +14,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: azure-vote-front-nodeport
+  namespace: k8straining
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: azure-vote-front
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: azure-vote-back
 spec:
   type: ClusterIP
