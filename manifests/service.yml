@@ -19,7 +19,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - nodePort: 8080
+  - nodePort: 31080
     protocol: TCP
     port: 80
     targetPort: 80
