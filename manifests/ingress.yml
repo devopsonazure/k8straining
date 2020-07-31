@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: public-ip.xip.io
+  - host: 23.98.121.24.xip.io 
     http:
       paths:
       - backend:
