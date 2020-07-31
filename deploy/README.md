@@ -26,3 +26,15 @@ sudo kubeadm join --config /etc/kubernetes/kubeadm.yaml
 ```
 - Run `kubectl apply -f https://docs.projectcalico.org/manifests/canal.yaml` to provision networking CNI, we use calico canal here.
 - Run `kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml` to install metrics server, which will be used for HPA example.
+- Run below command to modify metrics server arguments
+```sh
+kubectl patch deployment \
+  metrics-server \
+  --namespace kube-system \
+  --type='json' \
+  -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/args", "value": [
+  "--cert-dir=/tmp",
+  "--secure-port=4443",
+  "--kubelet-insecure-tls"
+]}]'
+```
