@@ -21,6 +21,7 @@ spec:
   ports:
   - nodePort: 8080
     protocol: TCP
+    port: 80
     targetPort: 80
   selector:
     app: azure-vote-front
