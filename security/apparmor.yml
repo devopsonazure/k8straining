@@ -1,0 +1,15 @@
+# kubectl exec apparmor -- cat /proc/1/attr/current
+# kubectl exec apparmor -- touch /tmp/denied
+# sudo aa-remove-unknown
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apparmor
+  annotations:
+    container.apparmor.security.beta.kubernetes.io/apparmor: localhost/apparmor-deny-write
+spec:
+  containers:
+  - name: apparmor
+    image: busybox
+    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
