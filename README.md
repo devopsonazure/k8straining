@@ -6,8 +6,8 @@ Demo scenarios include
 2. Pod, Deployment, Statefulset, Resource Quota and Limit, Secret and Configmap, Node affinity and pod affinity, Job and Cronjob
 3. Autoscaling
 4. Service4. Security
-a) Contiainer level security, AppArmor and Seccomp
-b) Pod security policy
+- Contiainer level security, AppArmor and Seccomp
+- Pod security policy
 5. Networking policy
 6. Namespace isolation
 7. Ingress controller
