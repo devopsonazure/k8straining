@@ -1,4 +1,5 @@
 # nc -z -v azure-vote-back.k8straining.svc.cluster.local 6379
+# nc -z -v redis-1.azure-vote-back.k8straining.svc.cluster.local 6379
 # nc -z -v vote.k8s.devsecops.ink 80
 # nc -z -v azure-vote-front 80
 kind: NetworkPolicy
