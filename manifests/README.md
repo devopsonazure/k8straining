@@ -1,5 +1,5 @@
 Time: 30 mins
-Prerequisites: 
+Prerequisites:
 Complete Lab 1
 Reference:
 https://kubernetes.io/docs/reference/kubectl/cheatsheet/
