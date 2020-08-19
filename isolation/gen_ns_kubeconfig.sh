@@ -87,8 +87,6 @@ set_kube_config_values() {
     --kubeconfig="${KUBECFG_FILE_NAME}"
 }
 
-
-
 create_target_folder
 create_service_account
 create_service_account_rolebinding
