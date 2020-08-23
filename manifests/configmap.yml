@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: redis
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
 data:
   master.conf: | 
     bind 0.0.0.0

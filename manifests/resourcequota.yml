@@ -3,6 +3,8 @@ kind: ResourceQuota
 metadata:
   name: k8straining
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile  
 spec:
   hard:
     requests.cpu: "1"

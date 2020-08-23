@@ -3,11 +3,13 @@ kind: Ingress
 metadata:
   name: vote
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile  
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: vote-host.xip.io 
+  - host: vote-host.xip.io
     http:
       paths:
       - backend:

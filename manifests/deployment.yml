@@ -3,9 +3,11 @@ kind: Deployment
 metadata:
   name: azure-vote-front
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
 spec:
   revisionHistoryLimit: 20
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: azure-vote-front

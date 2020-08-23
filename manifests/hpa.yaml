@@ -3,13 +3,15 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: azure-vote-front
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile  
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: azure-vote-front
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 30
@@ -19,4 +21,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 10
+        averageUtilization: 20

@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: azure-vote-front
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile    
 spec:
   ports:
   - port: 80
@@ -16,6 +18,8 @@ kind: Service
 metadata:
   name: azure-vote-front-nodeport
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile  
 spec:
   type: NodePort
   ports:
@@ -31,6 +35,8 @@ kind: Service
 metadata:
   name: azure-vote-back
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile  
 spec:
   type: ClusterIP
   ports:

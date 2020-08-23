@@ -1,8 +1,10 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: healthcheck
+  name: vote-wget
   namespace: k8straining
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile  
 spec:
   schedule: "*/15 * * * *"
   jobTemplate:
@@ -10,17 +12,17 @@ spec:
       template:
         spec:
           containers:
-          - name: healthcheck
+          - name: wget
             image: busybox
             args:
             - /bin/sh
             - -c
-            - wget -q -O - http://vote.k8s.devsecops.ink
+            - wget -q -O - http://vote-host.xip.io
             resources:
               requests:
-                cpu: 100m
-                memory: 64Mi
+                cpu: 10m
+                memory: 32Mi
               limits:
-                cpu: 200m
-                memory: 128Mi            
+                cpu: 20m
+                memory: 64Mi            
           restartPolicy: OnFailure
